@@ -1,0 +1,42 @@
+#!/bin/bash
+
+
+usage="$(basename "$0") [-c] SOURCE TARGET -- create replication from SOURCE to TARGET
+
+options:
+    -c make the replication continuous
+
+where:
+    SOURCE - either local database name or full URL of database
+    TARGET - either local database name or full URL of database
+
+Replication is done on local server (localhost:5984) by default. To override set SERVER
+environment variable to desired server URL."
+
+SERVER=${SERVER:-"http://localhost:5984"}
+
+if [ "$#" == 0 ] || [ "$1" = "-h" ] ; then
+  echo "$usage"
+  exit 1
+fi
+
+if [ "$1" = "-c" ] ; then
+	continuous="true"
+	shift
+else
+	continuous="false"
+fi
+
+if [ "$#" != 2 ] ; then
+  echo "$usage"
+  exit 1
+fi
+
+SOURCE="$1"
+TARGET="$2"
+
+curl -H 'Content-Type: application/json' -X POST $SERVER/_replicate -d \
+  "{\"source\": \"$SOURCE\", \
+    \"target\": \"$TARGET\", \
+    \"continuous\": $continuous}"
+

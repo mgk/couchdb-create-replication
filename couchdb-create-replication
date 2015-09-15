@@ -35,7 +35,7 @@ fi
 SOURCE="$1"
 TARGET="$2"
 
-curl -H 'Content-Type: application/json' -X POST $SERVER/_replicate -d \
+curl -H 'Content-Type: application/json' -X POST $SERVER/_replicator -d \
   "{\"source\": \"$SOURCE\", \
     \"target\": \"$TARGET\", \
     \"continuous\": $continuous}"

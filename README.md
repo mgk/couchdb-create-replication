@@ -37,6 +37,9 @@ couchdb-create-replication -c mydb http://server:5984/mydb
 couchdb-create-replication -c http://server:5984/mydb mydb
 ```
 
+## License
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+
 # FAQs
 
 **Q**: Why isn't there an option to automatically create the target DB?
